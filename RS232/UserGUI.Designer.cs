@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             C = new GroupBox();
+            terminatorCBox = new ComboBox();
+            terminatorLabel = new Label();
             parityCBox = new ComboBox();
             parityLabel = new Label();
             refreshComsButton = new Button();
@@ -48,11 +50,15 @@
             terminalSendButton = new Button();
             sendCommandTextBox = new TextBox();
             sendCommandLabel = new Label();
+            ownTerminatorTextBox = new TextBox();
             C.SuspendLayout();
             SuspendLayout();
             // 
             // C
             // 
+            C.Controls.Add(ownTerminatorTextBox);
+            C.Controls.Add(terminatorCBox);
+            C.Controls.Add(terminatorLabel);
             C.Controls.Add(parityCBox);
             C.Controls.Add(parityLabel);
             C.Controls.Add(refreshComsButton);
@@ -69,10 +75,30 @@
             C.Controls.Add(comPortLabel);
             C.Location = new Point(12, 12);
             C.Name = "C";
-            C.Size = new Size(473, 415);
+            C.Size = new Size(473, 393);
             C.TabIndex = 0;
             C.TabStop = false;
             C.Text = "COM Port Parameters";
+            // 
+            // terminatorCBox
+            // 
+            terminatorCBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            terminatorCBox.FormattingEnabled = true;
+            terminatorCBox.Items.AddRange(new object[] { "None", "CR", "LF", "CRLF", "Own" });
+            terminatorCBox.Location = new Point(147, 275);
+            terminatorCBox.Name = "terminatorCBox";
+            terminatorCBox.Size = new Size(182, 33);
+            terminatorCBox.TabIndex = 15;
+            terminatorCBox.SelectedIndexChanged += terminatorCBox_SelectedIndexChanged;
+            // 
+            // terminatorLabel
+            // 
+            terminatorLabel.AutoSize = true;
+            terminatorLabel.Location = new Point(16, 283);
+            terminatorLabel.Name = "terminatorLabel";
+            terminatorLabel.Size = new Size(96, 25);
+            terminatorLabel.TabIndex = 14;
+            terminatorLabel.Text = "Terminator";
             // 
             // parityCBox
             // 
@@ -106,7 +132,7 @@
             // OpenCloseComButton
             // 
             OpenCloseComButton.BackColor = Color.Green;
-            OpenCloseComButton.Location = new Point(160, 335);
+            OpenCloseComButton.Location = new Point(157, 332);
             OpenCloseComButton.Name = "OpenCloseComButton";
             OpenCloseComButton.Size = new Size(112, 34);
             OpenCloseComButton.TabIndex = 10;
@@ -251,6 +277,14 @@
             sendCommandLabel.TabIndex = 6;
             sendCommandLabel.Text = "Send command";
             // 
+            // ownTerminatorTextBox
+            // 
+            ownTerminatorTextBox.Location = new Point(335, 277);
+            ownTerminatorTextBox.Name = "ownTerminatorTextBox";
+            ownTerminatorTextBox.Size = new Size(112, 31);
+            ownTerminatorTextBox.TabIndex = 16;
+            ownTerminatorTextBox.Visible = false;
+            // 
             // UserGUI
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -292,5 +326,8 @@
         private Button terminalSendButton;
         private TextBox sendCommandTextBox;
         private Label sendCommandLabel;
+        private ComboBox terminatorCBox;
+        private Label terminatorLabel;
+        private TextBox ownTerminatorTextBox;
     }
 }

@@ -16,6 +16,10 @@ namespace RS232
         private Handshake _handShake;
         private Parity _parity;
 
+        public enum Terminator { None, CR, LF, CRLF, Own };
+
+        private Terminator _terminator;
+
         public void SetPortName(ComboBox portNameCBox)
         {
             _portName = portNameCBox.Text;
@@ -129,20 +133,51 @@ namespace RS232
             }
         }
 
-        public Parity GetParity() { return _parity;} 
+        public Parity GetParity() { return _parity;}
 
-
-        public string GetParametersInfo()
+        public void SetTerminator(ComboBox terminatorCBox)
         {
-            string info;
-            info = "Opened port: " + _portName + "\n";
-            info += "Baud rate: " + Convert.ToString(_baudRate) + "\n";
-            info += "Data bits: " + Convert.ToString(_dataBits) + "\n";
-            info += "Stop bits: " + Convert.ToString(_stopBits) + "\n";
-            info += "Flow Control: " + Convert.ToString(_handShake) + "\n";
-            info += "Parity: " + Convert.ToString(_parity) + "\n";
+            int terminator = terminatorCBox.SelectedIndex;
+            switch (terminator)
+            {
+                case 0:
+                    _terminator = Terminator.None;
+                    break;
+                case 1:
+                    _terminator = Terminator.CR;
+                    break;
+                case 2:
+                    _terminator = Terminator.LF;
+                    break;
+                case 3:
+                    _terminator = Terminator.CRLF;
+                    break;
+                case 4:
+                    _terminator = Terminator.Own;
+                    break;
+                default:
+                    _terminator = Terminator.None;
+                    break;
+            }
+        }
 
-            return info;
+        public Terminator GetTerminator() { return _terminator;}    
+
+
+        public string ParametersInfo
+        {
+            get
+            {
+                string info;
+                info = "Opened port: " + _portName + "\n";
+                info += "Baud rate: " + Convert.ToString(_baudRate) + "\n";
+                info += "Data bits: " + Convert.ToString(_dataBits) + "\n";
+                info += "Stop bits: " + Convert.ToString(_stopBits) + "\n";
+                info += "Flow Control: " + Convert.ToString(_handShake) + "\n";
+                info += "Parity: " + Convert.ToString(_parity) + "\n";
+
+                return info;
+            }
         }
     }
 }

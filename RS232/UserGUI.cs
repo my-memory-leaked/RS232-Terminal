@@ -1,5 +1,6 @@
 using RS232;
 using System.Reflection;
+using static RS232.ComPortParameters;
 
 namespace RS232
 {
@@ -20,6 +21,7 @@ namespace RS232
             stopBitsCBox.SelectedIndex = 0;
             flowControlCBox.SelectedIndex = 0;
             parityCBox.SelectedIndex = 0;
+            terminatorCBox.SelectedIndex = 0;
         }
 
         private void OpenCloseComButton_Click(object sender, EventArgs e)
@@ -45,12 +47,13 @@ namespace RS232
                 _comPortParameters.SetStopBits(stopBitsCBox);
                 _comPortParameters.SetHandShake(flowControlCBox);
                 _comPortParameters.SetParity(parityCBox);
+                _comPortParameters.SetTerminator(terminatorCBox);
 
                 // Todo add Terminator and timeout!!
 
                 _comPort.OpenPort(_comPortParameters);
 
-                terminalRichTextBox.AppendText(_comPortParameters.GetParametersInfo());
+                terminalRichTextBox.AppendText(_comPortParameters.ParametersInfo);
             }
         }
 
@@ -64,12 +67,53 @@ namespace RS232
             if (_comPort.IsOpened())
             {
                 string dataToSend = sendCommandTextBox.Text;
-                _comPort.SendData(dataToSend);
-                terminalRichTextBox.AppendText("Sent data: " + dataToSend + "\n");
+
+                switch (_comPortParameters.GetTerminator())
+                {
+                    case Terminator.None:
+                        // Nothing here.
+                        _comPort.SendData(dataToSend);
+                        terminalRichTextBox.AppendText("Sent data: " + dataToSend + "\n");
+                        break;
+                    case Terminator.CR:
+                        _comPort.SendData(dataToSend + "\r");
+                        terminalRichTextBox.AppendText("Sent data: " + dataToSend + "<CR>\n");
+                        break;
+                    case Terminator.LF:
+                        _comPort.SendData(dataToSend + "\n");
+                        terminalRichTextBox.AppendText("Sent data: " + dataToSend + "<LF>\n");
+                        break;
+                    case Terminator.CRLF:
+                        _comPort.SendData(dataToSend + "\r\n");
+                        terminalRichTextBox.AppendText("Sent data: " + dataToSend + "<CRLF>\n");
+                        break;
+                    case Terminator.Own:
+                        string ownTerminator = ownTerminatorTextBox.Text;
+                        _comPort.SendData(dataToSend + ownTerminator);
+                        terminalRichTextBox.AppendText("Sent data: " + dataToSend + ownTerminator + "\n");
+                        break;
+                    default:
+                        _comPort.SendData(dataToSend);
+                        terminalRichTextBox.AppendText("Sent data: " + dataToSend + "\n");
+                        break;
+                }
+
             }
             else
             {
                 terminalRichTextBox.AppendText("COM Port not opened!\n");
+            }
+        }
+
+        private void terminatorCBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (terminatorCBox.SelectedIndex == (int)ComPortParameters.Terminator.Own)
+            {
+                ownTerminatorTextBox.Visible = true;
+            }
+            else
+            {
+                ownTerminatorTextBox.Visible = false;
             }
         }
     }
