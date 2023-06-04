@@ -132,5 +132,17 @@ namespace RS232
         public Parity GetParity() { return _parity;} 
 
 
+        public string GetParametersInfo()
+        {
+            string info;
+            info = "Opened port: " + _portName + "\n";
+            info += "Baud rate: " + Convert.ToString(_baudRate) + "\n";
+            info += "Data bits: " + Convert.ToString(_dataBits) + "\n";
+            info += "Stop bits: " + Convert.ToString(_stopBits) + "\n";
+            info += "Flow Control: " + Convert.ToString(_handShake) + "\n";
+            info += "Parity: " + Convert.ToString(_parity) + "\n";
+
+            return info;
+        }
     }
 }

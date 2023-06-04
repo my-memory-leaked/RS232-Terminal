@@ -12,10 +12,6 @@ namespace RS232
     {
         private static SerialPort _serialPort = new SerialPort();
 
-        public COMPort()
-        {
-        }
-
         public void FetchAvailablePorts(ComboBox comboBox)
         {
             if(comboBox.SelectedItem == null)
@@ -71,6 +67,15 @@ namespace RS232
 
             }
             return string.Empty;
+        }
+
+
+        public void SendData(string data)
+        {
+            if(_serialPort.IsOpen && data != null)
+            { 
+                _serialPort.WriteLine(data);
+            }
         }
 
     }

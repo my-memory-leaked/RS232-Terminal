@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             C = new GroupBox();
+            parityCBox = new ComboBox();
+            parityLabel = new Label();
             refreshComsButton = new Button();
             OpenCloseComButton = new Button();
             flowControlCBox = new ComboBox();
@@ -41,8 +43,11 @@
             stopBitsLabel = new Label();
             baudRateLabel = new Label();
             comPortLabel = new Label();
-            parityCBox = new ComboBox();
-            parityLabel = new Label();
+            terminalRichTextBox = new RichTextBox();
+            receivedLabel = new Label();
+            terminalSendButton = new Button();
+            sendCommandTextBox = new TextBox();
+            sendCommandLabel = new Label();
             C.SuspendLayout();
             SuspendLayout();
             // 
@@ -68,6 +73,25 @@
             C.TabIndex = 0;
             C.TabStop = false;
             C.Text = "COM Port Parameters";
+            // 
+            // parityCBox
+            // 
+            parityCBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            parityCBox.FormattingEnabled = true;
+            parityCBox.Items.AddRange(new object[] { "None", "Odd", "Even" });
+            parityCBox.Location = new Point(147, 236);
+            parityCBox.Name = "parityCBox";
+            parityCBox.Size = new Size(182, 33);
+            parityCBox.TabIndex = 13;
+            // 
+            // parityLabel
+            // 
+            parityLabel.AutoSize = true;
+            parityLabel.Location = new Point(16, 244);
+            parityLabel.Name = "parityLabel";
+            parityLabel.Size = new Size(55, 25);
+            parityLabel.TabIndex = 12;
+            parityLabel.Text = "Parity";
             // 
             // refreshComsButton
             // 
@@ -184,36 +208,66 @@
             comPortLabel.TabIndex = 0;
             comPortLabel.Text = "COM Port";
             // 
-            // parityCBox
+            // terminalRichTextBox
             // 
-            parityCBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            parityCBox.FormattingEnabled = true;
-            parityCBox.Items.AddRange(new object[] { "None", "Odd", "Even" });
-            parityCBox.Location = new Point(147, 236);
-            parityCBox.Name = "parityCBox";
-            parityCBox.Size = new Size(182, 33);
-            parityCBox.TabIndex = 13;
+            terminalRichTextBox.Location = new Point(523, 40);
+            terminalRichTextBox.Name = "terminalRichTextBox";
+            terminalRichTextBox.Size = new Size(578, 365);
+            terminalRichTextBox.TabIndex = 2;
+            terminalRichTextBox.Text = "";
             // 
-            // parityLabel
+            // receivedLabel
             // 
-            parityLabel.AutoSize = true;
-            parityLabel.Location = new Point(16, 244);
-            parityLabel.Name = "parityLabel";
-            parityLabel.Size = new Size(55, 25);
-            parityLabel.TabIndex = 12;
-            parityLabel.Text = "Parity";
+            receivedLabel.AutoSize = true;
+            receivedLabel.Location = new Point(523, 12);
+            receivedLabel.Name = "receivedLabel";
+            receivedLabel.Size = new Size(121, 25);
+            receivedLabel.TabIndex = 3;
+            receivedLabel.Text = "Received data";
+            // 
+            // terminalSendButton
+            // 
+            terminalSendButton.Location = new Point(523, 481);
+            terminalSendButton.Name = "terminalSendButton";
+            terminalSendButton.Size = new Size(112, 34);
+            terminalSendButton.TabIndex = 4;
+            terminalSendButton.Text = "Send";
+            terminalSendButton.UseVisualStyleBackColor = true;
+            terminalSendButton.Click += terminalSendButton_Click;
+            // 
+            // sendCommandTextBox
+            // 
+            sendCommandTextBox.Location = new Point(523, 444);
+            sendCommandTextBox.Name = "sendCommandTextBox";
+            sendCommandTextBox.Size = new Size(578, 31);
+            sendCommandTextBox.TabIndex = 5;
+            // 
+            // sendCommandLabel
+            // 
+            sendCommandLabel.AutoSize = true;
+            sendCommandLabel.Location = new Point(523, 416);
+            sendCommandLabel.Name = "sendCommandLabel";
+            sendCommandLabel.Size = new Size(138, 25);
+            sendCommandLabel.TabIndex = 6;
+            sendCommandLabel.Text = "Send command";
             // 
             // UserGUI
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1128, 716);
+            ClientSize = new Size(1168, 546);
+            Controls.Add(sendCommandLabel);
+            Controls.Add(sendCommandTextBox);
+            Controls.Add(terminalSendButton);
+            Controls.Add(receivedLabel);
+            Controls.Add(terminalRichTextBox);
             Controls.Add(C);
             Name = "UserGUI";
-            Text = "RS232";
+            Text = "RS232 Terminal";
             C.ResumeLayout(false);
             C.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -233,5 +287,10 @@
         private Button refreshComsButton;
         private ComboBox parityCBox;
         private Label parityLabel;
+        private RichTextBox terminalRichTextBox;
+        private Label receivedLabel;
+        private Button terminalSendButton;
+        private TextBox sendCommandTextBox;
+        private Label sendCommandLabel;
     }
 }
