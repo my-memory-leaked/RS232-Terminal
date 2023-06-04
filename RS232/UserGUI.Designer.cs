@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             C = new GroupBox();
+            ownTerminatorTextBox = new TextBox();
             terminatorCBox = new ComboBox();
             terminatorLabel = new Label();
             parityCBox = new ComboBox();
@@ -50,7 +51,6 @@
             terminalSendButton = new Button();
             sendCommandTextBox = new TextBox();
             sendCommandLabel = new Label();
-            ownTerminatorTextBox = new TextBox();
             C.SuspendLayout();
             SuspendLayout();
             // 
@@ -79,6 +79,14 @@
             C.TabIndex = 0;
             C.TabStop = false;
             C.Text = "COM Port Parameters";
+            // 
+            // ownTerminatorTextBox
+            // 
+            ownTerminatorTextBox.Location = new Point(335, 277);
+            ownTerminatorTextBox.Name = "ownTerminatorTextBox";
+            ownTerminatorTextBox.Size = new Size(112, 31);
+            ownTerminatorTextBox.TabIndex = 16;
+            ownTerminatorTextBox.Visible = false;
             // 
             // terminatorCBox
             // 
@@ -276,14 +284,6 @@
             sendCommandLabel.Size = new Size(138, 25);
             sendCommandLabel.TabIndex = 6;
             sendCommandLabel.Text = "Send command";
-            // 
-            // ownTerminatorTextBox
-            // 
-            ownTerminatorTextBox.Location = new Point(335, 277);
-            ownTerminatorTextBox.Name = "ownTerminatorTextBox";
-            ownTerminatorTextBox.Size = new Size(112, 31);
-            ownTerminatorTextBox.TabIndex = 16;
-            ownTerminatorTextBox.Visible = false;
             // 
             // UserGUI
             // 

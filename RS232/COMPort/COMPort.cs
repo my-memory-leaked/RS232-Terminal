@@ -54,7 +54,7 @@ namespace RS232
             }
         }
 
-        public string Read()
+        public string ReceiveData()
         {
             try
             {
@@ -74,7 +74,7 @@ namespace RS232
         {
             if(_serialPort.IsOpen && data != null)
             { 
-                _serialPort.WriteLine(data);
+                _serialPort.Write(data);
             }
         }
 
