@@ -13,10 +13,8 @@ namespace RS232
         private int _baudRate;
         private int _dataBits;
         private StopBits _stopBits;
-
-        public ComPortParameters()
-        { 
-        }
+        private Handshake _handShake;
+        private Parity _parity;
 
         public void SetPortName(ComboBox portNameCBox)
         {
@@ -86,7 +84,53 @@ namespace RS232
             }
             catch { }
         }
-
         public StopBits GetStopBits() { return _stopBits; }
+
+        public void SetHandShake(ComboBox flowControlCBox)
+        {
+            int flowControl = flowControlCBox.SelectedIndex;
+            switch (flowControl)
+            {
+                case 0:
+                    _handShake = Handshake.None;
+                    break;
+                case 1:
+                    _handShake = Handshake.XOnXOff;
+                    break;
+                case 2:
+                    _handShake = Handshake.RequestToSend;
+                    break;
+                default:
+                    _handShake = Handshake.None;
+                    break;
+            }
+
+        }
+
+        public Handshake GetHandshake() { return _handShake; }
+
+        public void SetParity(ComboBox parityCBox) 
+        {
+            int parity = parityCBox.SelectedIndex;
+            switch (parity)
+            {
+                case 0:
+                    _parity = Parity.None;
+                    break;
+                case 1:
+                    _parity = Parity.Odd;
+                    break;
+                case 2:
+                    _parity = Parity.Even;
+                    break;
+                default:
+                    _parity = Parity.None;
+                    break;
+            }
+        }
+
+        public Parity GetParity() { return _parity;} 
+
+
     }
 }

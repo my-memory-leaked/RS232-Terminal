@@ -18,6 +18,8 @@ namespace RS232
             baudRateCBox.SelectedIndex = 6;
             dataBitsCBox.SelectedIndex = 0;
             stopBitsCBox.SelectedIndex = 0;
+            flowControlCBox.SelectedIndex = 0;
+            parityCBox.SelectedIndex = 0;   
         }
 
         private void OpenCloseComButton_Click(object sender, EventArgs e)
@@ -40,10 +42,17 @@ namespace RS232
             _comPortParameters.SetBoudRate(baudRateCBox);
             _comPortParameters.SetDataBits(dataBitsCBox);
             _comPortParameters.SetStopBits(stopBitsCBox);
+            _comPortParameters.SetHandShake(flowControlCBox);
+            _comPortParameters.SetParity(parityCBox);
 
-
+            // Todo Terminator and timeout!!
 
             _comPort.OpenPort(_comPortParameters);
+        }
+
+        private void refreshComsButton_Click(object sender, EventArgs e)
+        {
+            _comPort.FetchAvailablePorts(comPortCBox);
         }
     }
 }

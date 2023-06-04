@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             C = new GroupBox();
+            refreshComsButton = new Button();
             OpenCloseComButton = new Button();
             flowControlCBox = new ComboBox();
             flowControlLabel = new Label();
@@ -40,11 +41,16 @@
             stopBitsLabel = new Label();
             baudRateLabel = new Label();
             comPortLabel = new Label();
+            parityCBox = new ComboBox();
+            parityLabel = new Label();
             C.SuspendLayout();
             SuspendLayout();
             // 
             // C
             // 
+            C.Controls.Add(parityCBox);
+            C.Controls.Add(parityLabel);
+            C.Controls.Add(refreshComsButton);
             C.Controls.Add(OpenCloseComButton);
             C.Controls.Add(flowControlCBox);
             C.Controls.Add(flowControlLabel);
@@ -63,6 +69,16 @@
             C.TabStop = false;
             C.Text = "COM Port Parameters";
             // 
+            // refreshComsButton
+            // 
+            refreshComsButton.Location = new Point(335, 37);
+            refreshComsButton.Name = "refreshComsButton";
+            refreshComsButton.Size = new Size(112, 34);
+            refreshComsButton.TabIndex = 11;
+            refreshComsButton.Text = "Refresh";
+            refreshComsButton.UseVisualStyleBackColor = true;
+            refreshComsButton.Click += refreshComsButton_Click;
+            // 
             // OpenCloseComButton
             // 
             OpenCloseComButton.BackColor = Color.Green;
@@ -78,7 +94,7 @@
             // 
             flowControlCBox.DropDownStyle = ComboBoxStyle.DropDownList;
             flowControlCBox.FormattingEnabled = true;
-            flowControlCBox.Items.AddRange(new object[] { "8 bits", "7 bits" });
+            flowControlCBox.Items.AddRange(new object[] { "None", "XON/XOFF", "RTS/CTS", "DTR/DSR" });
             flowControlCBox.Location = new Point(147, 197);
             flowControlCBox.Name = "flowControlCBox";
             flowControlCBox.Size = new Size(182, 33);
@@ -168,6 +184,25 @@
             comPortLabel.TabIndex = 0;
             comPortLabel.Text = "COM Port";
             // 
+            // parityCBox
+            // 
+            parityCBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            parityCBox.FormattingEnabled = true;
+            parityCBox.Items.AddRange(new object[] { "None", "Odd", "Even" });
+            parityCBox.Location = new Point(147, 236);
+            parityCBox.Name = "parityCBox";
+            parityCBox.Size = new Size(182, 33);
+            parityCBox.TabIndex = 13;
+            // 
+            // parityLabel
+            // 
+            parityLabel.AutoSize = true;
+            parityLabel.Location = new Point(16, 244);
+            parityLabel.Name = "parityLabel";
+            parityLabel.Size = new Size(55, 25);
+            parityLabel.TabIndex = 12;
+            parityLabel.Text = "Parity";
+            // 
             // UserGUI
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -195,5 +230,8 @@
         private ComboBox dataBitsCBox;
         private Label dataBitsLabel;
         private Button OpenCloseComButton;
+        private Button refreshComsButton;
+        private ComboBox parityCBox;
+        private Label parityLabel;
     }
 }

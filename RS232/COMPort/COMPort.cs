@@ -27,20 +27,22 @@ namespace RS232
 
         public void OpenPort(ComPortParameters comPortParameters)
         {
-            //_serialPort.PortName = SetPortName(_serialPort.PortName);
+            _serialPort.PortName = comPortParameters.GetPortName();
             _serialPort.BaudRate = comPortParameters.GetBaudRate();
-            //_serialPort.Parity = SetPortParity(_serialPort.Parity);
             _serialPort.DataBits = comPortParameters.GetDataBits();
             _serialPort.StopBits = comPortParameters.GetStopBits();
-            //_serialPort.Handshake = SetPortHandshake(_serialPort.Handshake);
+            _serialPort.Handshake = comPortParameters.GetHandshake();
+            _serialPort.Parity = comPortParameters.GetParity();
 
-            //// Set the read/write timeouts
-            //_serialPort.ReadTimeout = 500;
-            //_serialPort.WriteTimeout = 500;
-
-
-
-            _serialPort.Open();
+            try
+            {
+                _serialPort.Open();
+            }
+            catch
+            {
+                _serialPort.Close();
+                return ;
+            }
         }
 
         public bool IsOpened()
