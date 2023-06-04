@@ -65,12 +65,14 @@
             // 
             // OpenCloseComButton
             // 
+            OpenCloseComButton.BackColor = Color.Green;
             OpenCloseComButton.Location = new Point(160, 335);
             OpenCloseComButton.Name = "OpenCloseComButton";
             OpenCloseComButton.Size = new Size(112, 34);
             OpenCloseComButton.TabIndex = 10;
             OpenCloseComButton.Text = "Open";
-            OpenCloseComButton.UseVisualStyleBackColor = true;
+            OpenCloseComButton.UseVisualStyleBackColor = false;
+            OpenCloseComButton.Click += OpenCloseComButton_Click;
             // 
             // flowControlCBox
             // 
@@ -96,7 +98,7 @@
             dataBitsCBox.DropDownStyle = ComboBoxStyle.DropDownList;
             dataBitsCBox.FormattingEnabled = true;
             dataBitsCBox.Items.AddRange(new object[] { "8 bits", "7 bits" });
-            dataBitsCBox.Location = new Point(147, 158);
+            dataBitsCBox.Location = new Point(147, 118);
             dataBitsCBox.Name = "dataBitsCBox";
             dataBitsCBox.Size = new Size(182, 33);
             dataBitsCBox.TabIndex = 7;
@@ -104,7 +106,7 @@
             // dataBitsLabel
             // 
             dataBitsLabel.AutoSize = true;
-            dataBitsLabel.Location = new Point(16, 166);
+            dataBitsLabel.Location = new Point(16, 126);
             dataBitsLabel.Name = "dataBitsLabel";
             dataBitsLabel.Size = new Size(82, 25);
             dataBitsLabel.TabIndex = 6;
@@ -115,7 +117,7 @@
             stopBitsCBox.DropDownStyle = ComboBoxStyle.DropDownList;
             stopBitsCBox.FormattingEnabled = true;
             stopBitsCBox.Items.AddRange(new object[] { "1 bit", "2 bits" });
-            stopBitsCBox.Location = new Point(147, 119);
+            stopBitsCBox.Location = new Point(147, 159);
             stopBitsCBox.Name = "stopBitsCBox";
             stopBitsCBox.Size = new Size(182, 33);
             stopBitsCBox.TabIndex = 5;
@@ -132,6 +134,7 @@
             // 
             // comPortCBox
             // 
+            comPortCBox.DropDownStyle = ComboBoxStyle.DropDownList;
             comPortCBox.FormattingEnabled = true;
             comPortCBox.Location = new Point(147, 37);
             comPortCBox.Name = "comPortCBox";
@@ -141,7 +144,7 @@
             // stopBitsLabel
             // 
             stopBitsLabel.AutoSize = true;
-            stopBitsLabel.Location = new Point(16, 127);
+            stopBitsLabel.Location = new Point(16, 167);
             stopBitsLabel.Name = "stopBitsLabel";
             stopBitsLabel.Size = new Size(82, 25);
             stopBitsLabel.TabIndex = 2;
