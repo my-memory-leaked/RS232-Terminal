@@ -26,7 +26,7 @@ Follow these steps to get started with the RS232 terminal:
 
 ## GUI
 
-![image](https://github.com/my-memory-leaked/RS232-Terminal/assets/72348855/27a19a47-c319-485c-94fa-8c9aece7d987)
+![image](https://github.com/my-memory-leaked/RS232-Terminal/assets/72348855/6d330cf2-d514-4c80-917d-bc9a9b22df43)
 
 
 ## Usage
