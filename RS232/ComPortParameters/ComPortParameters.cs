@@ -169,13 +169,13 @@ namespace RS232
             get
             {
                 string info;
-                info = "Opened port: " + _portName + "\n";
-                info += "Baud rate: " + Convert.ToString(_baudRate) + "\n";
-                info += "Data bits: " + Convert.ToString(_dataBits) + "\n";
-                info += "Stop bits: " + Convert.ToString(_stopBits) + "\n";
-                info += "Flow Control: " + Convert.ToString(_handShake) + "\n";
-                info += "Parity: " + Convert.ToString(_parity) + "\n";
-
+                info = "Opened port: " + _portName + Environment.NewLine;
+                info += "Baud rate: " + Convert.ToString(_baudRate) + Environment.NewLine;
+                info += "Data bits: " + Convert.ToString(_dataBits) + Environment.NewLine;
+                info += "Stop bits: " + Convert.ToString(_stopBits) + Environment.NewLine;
+                info += "Flow Control: " + Convert.ToString(_handShake) + Environment.NewLine;
+                info += "Parity: " + Convert.ToString(_parity) + Environment.NewLine;
+                info += "Terminator: <" + Convert.ToString(_terminator) + ">" + Environment.NewLine;
                 return info;
             }
         }

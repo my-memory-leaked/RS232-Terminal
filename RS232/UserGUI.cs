@@ -1,16 +1,18 @@
 using RS232;
+using System.IO.Ports;
 using System.Reflection;
+using System.Threading;
 using System.Windows.Forms;
 using static RS232.ComPortParameters;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace RS232
 {
     public partial class UserGUI : Form
     {
-        private Thread _thread;
-        private static Mutex _terminalMutex = new Mutex();
         private COMPort _comPort = new COMPort();
         private ComPortParameters _comPortParameters = new ComPortParameters();
+        private string _receivedData;
 
         public UserGUI()
         {
@@ -28,16 +30,10 @@ namespace RS232
 
             terminalRichTextBox.HideSelection = false;
 
-
-            // Thread.
-            _thread = new Thread(new ThreadStart(this.ReceiveThreadTask));
-            _thread.IsBackground = true;
-            _thread.Start();
         }
 
         private void OpenCloseComButton_Click(object sender, EventArgs e)
         {
-            _terminalMutex.WaitOne();
             if (_comPort.IsOpened())
             {
                 OpenCloseComButton.Text = "Open";
@@ -46,7 +42,6 @@ namespace RS232
                 _comPort.ClosePort();
                 terminalRichTextBox.AppendText("COM Port closed!\n");
 
-                // Suspend receiving data if com port is not opened.
             }
             else
             {
@@ -62,14 +57,18 @@ namespace RS232
                 _comPortParameters.SetParity(parityCBox);
                 _comPortParameters.SetTerminator(terminatorCBox);
 
-                // Todo add Terminator and timeout!!
+                _comPort.OpenPort(_comPortParameters, this);
 
-                _comPort.OpenPort(_comPortParameters);
-
-                terminalRichTextBox.AppendText(_comPortParameters.ParametersInfo);
+                if (_comPort.IsOpened())
+                {
+                    terminalRichTextBox.AppendText(_comPortParameters.ParametersInfo);
+                }
+                else
+                {
+                    terminalRichTextBox.AppendText("Port not opened! ERROR!!!");
+                }
 
             }
-            _terminalMutex.ReleaseMutex();   
         }
 
         private void refreshComsButton_Click(object sender, EventArgs e)
@@ -79,7 +78,6 @@ namespace RS232
 
         private void terminalSendButton_Click(object sender, EventArgs e)
         {
-            _terminalMutex.WaitOne();
             if (_comPort.IsOpened())
             {
                 string dataToSend = sendCommandTextBox.Text;
@@ -119,7 +117,6 @@ namespace RS232
             {
                 terminalRichTextBox.AppendText("COM Port not opened!\n");
             }
-            _terminalMutex.ReleaseMutex();
         }
 
         private void terminatorCBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -132,26 +129,195 @@ namespace RS232
             {
                 ownTerminatorTextBox.Visible = false;
             }
-        }
 
-        private void ReceiveThreadTask()
-        {
-            while (true)
+            if (_comPort.IsOpened())
             {
-                _terminalMutex.WaitOne();
+                _comPort.ClosePort();
+
+                _comPortParameters.SetTerminator(terminatorCBox);
+                _comPort.OpenPort(_comPortParameters, this);
+
                 if (_comPort.IsOpened())
                 {
-                    string receivedMessage = _comPort.ReceiveData();
-                    if (receivedMessage != null)
-                    {
-                        terminalRichTextBox.AppendText("Received data: " + receivedMessage + "\n");
-                    }
+                    terminalRichTextBox.AppendText(_comPortParameters.ParametersInfo);
                 }
-                _terminalMutex.ReleaseMutex();
-                Thread.Sleep(100);
+                else
+                {
+                    terminalRichTextBox.AppendText("Port not opened! ERROR!!!");
+                    OpenCloseComButton.Text = "Close";
+                    OpenCloseComButton.BackColor = Color.Red;
+                }
             }
         }
 
-        
+        public void _serialPort_DataReceived(object sender, EventArgs e)
+        {
+            _receivedData = _comPort.ReceiveData();
+
+            this.Invoke(new Action(this.ProcessData));
+        }
+
+        private void ProcessData()
+        {
+            terminalRichTextBox.AppendText("Received data: " + _receivedData);
+        }
+
+        private void comPortCBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_comPort.IsOpened())
+            {
+                _comPort.ClosePort();
+
+                _comPortParameters.SetPortName(comPortCBox);
+                _comPort.OpenPort(_comPortParameters, this);
+
+                if (_comPort.IsOpened())
+                {
+                    terminalRichTextBox.AppendText(_comPortParameters.ParametersInfo);
+                }
+                else
+                {
+                    terminalRichTextBox.AppendText("Port not opened! ERROR!!!");
+                    OpenCloseComButton.Text = "Close";
+                    OpenCloseComButton.BackColor = Color.Red;
+                }
+            }
+        }
+        private void baudRateCBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_comPort.IsOpened())
+            {
+                _comPort.ClosePort();
+
+                _comPortParameters.SetBoudRate(baudRateCBox);
+                _comPort.OpenPort(_comPortParameters, this);
+
+                if (_comPort.IsOpened())
+                {
+                    terminalRichTextBox.AppendText(_comPortParameters.ParametersInfo);
+                }
+                else
+                {
+                    terminalRichTextBox.AppendText("Port not opened! ERROR!!!");
+                    OpenCloseComButton.Text = "Close";
+                    OpenCloseComButton.BackColor = Color.Red;
+                }
+            }
+        }
+
+        private void dataBitsCBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_comPort.IsOpened())
+            {
+                _comPort.ClosePort();
+
+                _comPortParameters.SetDataBits(dataBitsCBox);
+                _comPort.OpenPort(_comPortParameters, this);
+
+                if (_comPort.IsOpened())
+                {
+                    terminalRichTextBox.AppendText(_comPortParameters.ParametersInfo);
+                }
+                else
+                {
+                    terminalRichTextBox.AppendText("Port not opened! ERROR!!!");
+                    OpenCloseComButton.Text = "Close";
+                    OpenCloseComButton.BackColor = Color.Red;
+                }
+            }
+        }
+
+        private void stopBitsCBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_comPort.IsOpened())
+            {
+                _comPort.ClosePort();
+
+                _comPortParameters.SetStopBits(stopBitsCBox);
+                _comPort.OpenPort(_comPortParameters, this);
+
+                if (_comPort.IsOpened())
+                {
+                    terminalRichTextBox.AppendText(_comPortParameters.ParametersInfo);
+                }
+                else
+                {
+                    terminalRichTextBox.AppendText("Port not opened! ERROR!!!");
+                    OpenCloseComButton.Text = "Close";
+                    OpenCloseComButton.BackColor = Color.Red;
+                }
+            }
+        }
+
+        private void flowControlCBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_comPort.IsOpened())
+            {
+                _comPort.ClosePort();
+
+                _comPortParameters.SetHandShake(flowControlCBox);
+                _comPort.OpenPort(_comPortParameters, this);
+
+                if (_comPort.IsOpened())
+                {
+                    terminalRichTextBox.AppendText(_comPortParameters.ParametersInfo);
+                }
+                else
+                {
+                    terminalRichTextBox.AppendText("Port not opened! ERROR!!!");
+                    OpenCloseComButton.Text = "Close";
+                    OpenCloseComButton.BackColor = Color.Red;
+                }
+            }
+        }
+
+        private void parityCBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_comPort.IsOpened())
+            {
+                _comPort.ClosePort();
+
+                _comPortParameters.SetParity(parityCBox);
+                _comPort.OpenPort(_comPortParameters, this);
+
+                if (_comPort.IsOpened())
+                {
+                    terminalRichTextBox.AppendText(_comPortParameters.ParametersInfo);
+                }
+                else
+                {
+                    terminalRichTextBox.AppendText("Port not opened! ERROR!!!");
+                    OpenCloseComButton.Text = "Close";
+                    OpenCloseComButton.BackColor = Color.Red;
+                }
+            }
+        }
+
+        private void ownTerminatorTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (_comPort.IsOpened())
+            {
+                _comPort.ClosePort();
+
+                _comPortParameters.SetTerminator(terminatorCBox);
+                _comPort.OpenPort(_comPortParameters, this);
+
+                if (_comPort.IsOpened())
+                {
+                    terminalRichTextBox.AppendText(_comPortParameters.ParametersInfo);
+                }
+                else
+                {
+                    terminalRichTextBox.AppendText("Port not opened! ERROR!!!");
+                    OpenCloseComButton.Text = "Close";
+                    OpenCloseComButton.BackColor = Color.Red;
+                }
+            }
+        }
+
+        private void clearTerminalButton_Click(object sender, EventArgs e)
+        {
+            terminalRichTextBox.Clear();
+        }
     }
 }

@@ -51,6 +51,7 @@
             terminalSendButton = new Button();
             sendCommandTextBox = new TextBox();
             sendCommandLabel = new Label();
+            clearTerminalButton = new Button();
             C.SuspendLayout();
             SuspendLayout();
             // 
@@ -75,7 +76,7 @@
             C.Controls.Add(comPortLabel);
             C.Location = new Point(12, 12);
             C.Name = "C";
-            C.Size = new Size(473, 393);
+            C.Size = new Size(473, 384);
             C.TabIndex = 0;
             C.TabStop = false;
             C.Text = "COM Port Parameters";
@@ -87,6 +88,7 @@
             ownTerminatorTextBox.Size = new Size(112, 31);
             ownTerminatorTextBox.TabIndex = 16;
             ownTerminatorTextBox.Visible = false;
+            ownTerminatorTextBox.TextChanged += ownTerminatorTextBox_TextChanged;
             // 
             // terminatorCBox
             // 
@@ -117,6 +119,7 @@
             parityCBox.Name = "parityCBox";
             parityCBox.Size = new Size(182, 33);
             parityCBox.TabIndex = 13;
+            parityCBox.SelectedIndexChanged += parityCBox_SelectedIndexChanged;
             // 
             // parityLabel
             // 
@@ -157,6 +160,7 @@
             flowControlCBox.Name = "flowControlCBox";
             flowControlCBox.Size = new Size(182, 33);
             flowControlCBox.TabIndex = 9;
+            flowControlCBox.SelectedIndexChanged += flowControlCBox_SelectedIndexChanged;
             // 
             // flowControlLabel
             // 
@@ -176,6 +180,7 @@
             dataBitsCBox.Name = "dataBitsCBox";
             dataBitsCBox.Size = new Size(182, 33);
             dataBitsCBox.TabIndex = 7;
+            dataBitsCBox.SelectedIndexChanged += dataBitsCBox_SelectedIndexChanged;
             // 
             // dataBitsLabel
             // 
@@ -195,6 +200,7 @@
             stopBitsCBox.Name = "stopBitsCBox";
             stopBitsCBox.Size = new Size(182, 33);
             stopBitsCBox.TabIndex = 5;
+            stopBitsCBox.SelectedIndexChanged += stopBitsCBox_SelectedIndexChanged;
             // 
             // baudRateCBox
             // 
@@ -205,6 +211,7 @@
             baudRateCBox.Name = "baudRateCBox";
             baudRateCBox.Size = new Size(182, 33);
             baudRateCBox.TabIndex = 4;
+            baudRateCBox.SelectedIndexChanged += baudRateCBox_SelectedIndexChanged;
             // 
             // comPortCBox
             // 
@@ -214,6 +221,7 @@
             comPortCBox.Name = "comPortCBox";
             comPortCBox.Size = new Size(182, 33);
             comPortCBox.TabIndex = 3;
+            comPortCBox.SelectedIndexChanged += comPortCBox_SelectedIndexChanged;
             // 
             // stopBitsLabel
             // 
@@ -246,7 +254,7 @@
             // 
             terminalRichTextBox.Location = new Point(523, 40);
             terminalRichTextBox.Name = "terminalRichTextBox";
-            terminalRichTextBox.Size = new Size(578, 365);
+            terminalRichTextBox.Size = new Size(915, 770);
             terminalRichTextBox.TabIndex = 2;
             terminalRichTextBox.Text = "";
             // 
@@ -261,7 +269,7 @@
             // 
             // terminalSendButton
             // 
-            terminalSendButton.Location = new Point(523, 481);
+            terminalSendButton.Location = new Point(523, 878);
             terminalSendButton.Name = "terminalSendButton";
             terminalSendButton.Size = new Size(112, 34);
             terminalSendButton.TabIndex = 4;
@@ -271,7 +279,7 @@
             // 
             // sendCommandTextBox
             // 
-            sendCommandTextBox.Location = new Point(523, 444);
+            sendCommandTextBox.Location = new Point(523, 841);
             sendCommandTextBox.Name = "sendCommandTextBox";
             sendCommandTextBox.Size = new Size(578, 31);
             sendCommandTextBox.TabIndex = 5;
@@ -279,17 +287,28 @@
             // sendCommandLabel
             // 
             sendCommandLabel.AutoSize = true;
-            sendCommandLabel.Location = new Point(523, 416);
+            sendCommandLabel.Location = new Point(523, 813);
             sendCommandLabel.Name = "sendCommandLabel";
             sendCommandLabel.Size = new Size(138, 25);
             sendCommandLabel.TabIndex = 6;
             sendCommandLabel.Text = "Send command";
             // 
+            // clearTerminalButton
+            // 
+            clearTerminalButton.Location = new Point(1326, 816);
+            clearTerminalButton.Name = "clearTerminalButton";
+            clearTerminalButton.Size = new Size(112, 34);
+            clearTerminalButton.TabIndex = 7;
+            clearTerminalButton.Text = "Clear";
+            clearTerminalButton.UseVisualStyleBackColor = true;
+            clearTerminalButton.Click += clearTerminalButton_Click;
+            // 
             // UserGUI
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1168, 546);
+            ClientSize = new Size(1450, 932);
+            Controls.Add(clearTerminalButton);
             Controls.Add(sendCommandLabel);
             Controls.Add(sendCommandTextBox);
             Controls.Add(terminalSendButton);
@@ -329,5 +348,6 @@
         private ComboBox terminatorCBox;
         private Label terminatorLabel;
         private TextBox ownTerminatorTextBox;
+        private Button clearTerminalButton;
     }
 }

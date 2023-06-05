@@ -1,3 +1,5 @@
+using System.Threading;
+
 namespace RS232
 {
     internal static class Program

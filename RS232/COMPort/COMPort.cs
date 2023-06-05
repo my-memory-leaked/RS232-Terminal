@@ -11,7 +11,7 @@ namespace RS232
     internal class COMPort
     {
         private static SerialPort _serialPort = new SerialPort();
-
+        public string ReceivedData;
         public void FetchAvailablePorts(ComboBox comboBox)
         {
             if(comboBox.SelectedItem == null)
@@ -21,7 +21,7 @@ namespace RS232
             }
         }
 
-        public void OpenPort(ComPortParameters comPortParameters)
+        public void OpenPort(ComPortParameters comPortParameters, UserGUI userGUI)
         {
             _serialPort.PortName = comPortParameters.GetPortName();
             _serialPort.BaudRate = comPortParameters.GetBaudRate();
@@ -29,6 +29,7 @@ namespace RS232
             _serialPort.StopBits = comPortParameters.GetStopBits();
             _serialPort.Handshake = comPortParameters.GetHandshake();
             _serialPort.Parity = comPortParameters.GetParity();
+            _serialPort.DataReceived += userGUI._serialPort_DataReceived;
 
             try
             {
@@ -58,9 +59,12 @@ namespace RS232
         {
             try
             {
-                string message = _serialPort.ReadLine();
-                Console.WriteLine(message);
-                return message;
+                if(_serialPort.IsOpen )
+                {
+                    string message = _serialPort.ReadExisting() + Environment.NewLine;
+                    Console.WriteLine(message);
+                    return message;
+                }
             }
             catch (TimeoutException)
             {
