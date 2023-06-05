@@ -47,7 +47,7 @@
             baudRateLabel = new Label();
             comPortLabel = new Label();
             terminalRichTextBox = new RichTextBox();
-            receivedLabel = new Label();
+            terminalLabel = new Label();
             terminalSendButton = new Button();
             sendCommandTextBox = new TextBox();
             sendCommandLabel = new Label();
@@ -258,14 +258,14 @@
             terminalRichTextBox.TabIndex = 2;
             terminalRichTextBox.Text = "";
             // 
-            // receivedLabel
+            // terminalLabel
             // 
-            receivedLabel.AutoSize = true;
-            receivedLabel.Location = new Point(523, 12);
-            receivedLabel.Name = "receivedLabel";
-            receivedLabel.Size = new Size(121, 25);
-            receivedLabel.TabIndex = 3;
-            receivedLabel.Text = "Received data";
+            terminalLabel.AutoSize = true;
+            terminalLabel.Location = new Point(523, 12);
+            terminalLabel.Name = "terminalLabel";
+            terminalLabel.Size = new Size(77, 25);
+            terminalLabel.TabIndex = 3;
+            terminalLabel.Text = "Terminal";
             // 
             // terminalSendButton
             // 
@@ -312,7 +312,7 @@
             Controls.Add(sendCommandLabel);
             Controls.Add(sendCommandTextBox);
             Controls.Add(terminalSendButton);
-            Controls.Add(receivedLabel);
+            Controls.Add(terminalLabel);
             Controls.Add(terminalRichTextBox);
             Controls.Add(C);
             Name = "UserGUI";
@@ -341,7 +341,7 @@
         private ComboBox parityCBox;
         private Label parityLabel;
         private RichTextBox terminalRichTextBox;
-        private Label receivedLabel;
+        private Label terminalLabel;
         private Button terminalSendButton;
         private TextBox sendCommandTextBox;
         private Label sendCommandLabel;
