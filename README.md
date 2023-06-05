@@ -24,14 +24,18 @@ Follow these steps to get started with the RS232 terminal:
 2. Open the solution file (`RS232Terminal.sln`) in Visual Studio or any other C# IDE.
 3. Build the solution to compile the application.
 
+## GUI
+
+![image](https://github.com/my-memory-leaked/RS232-Terminal/assets/72348855/27a19a47-c319-485c-94fa-8c9aece7d987)
+
+
 ## Usage
 
 1. Launch the RS232 terminal application.
-2. Click on the "Connect" button to establish a connection with the serial port. The available serial ports will be listed in a drop-down menu.
 3. Select the desired serial port from the drop-down menu.
 4. Set the appropriate serial port settings (baud rate, data bits, parity, stop bits) using the provided options.
-5. Click on the "Open Port" button to open the selected serial port.
-6. Use the text box labeled "Send Data" to enter the data you want to send to the connected device.
+5. Click on the "Open" button to open the selected serial port.
+6. Use the text box labeled "Send command" to enter the data you want to send to the connected device.
 7. Click on the "Send" button to send the entered data to the device.
 8. The received data from the device will be displayed in the text box.
 
