@@ -8,6 +8,8 @@ This is a simple RS232 terminal application built using C# and Windows Forms. It
 - Send data to the connected device
 - Receive data from the connected device
 - Configure serial port settings (baud rate, data bits, parity, stop bits)
+- Ping round trip delay with time measure
+- Flow control. Note that during tests some of the features didn't work
 
 ## Prerequisites
 
