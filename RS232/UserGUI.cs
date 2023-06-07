@@ -159,7 +159,10 @@ namespace RS232
 
         private void ProcessData()
         {
-            terminalRichTextBox.AppendText("Received data: " + _receivedData);
+            if(!String.IsNullOrWhiteSpace(_receivedData))
+                terminalRichTextBox.AppendText("Received data: " + _receivedData);
+
+            _receivedData = string.Empty;
         }
 
         private void comPortCBox_SelectedIndexChanged(object sender, EventArgs e)
