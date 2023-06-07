@@ -8,6 +8,8 @@ This is a simple RS232 terminal application built using C# and Windows Forms. It
 - Send data to the connected device
 - Receive data from the connected device
 - Configure serial port settings (baud rate, data bits, parity, stop bits)
+- Ping round trip delay with time measure
+- Flow control. Note that during tests some of the features didn't work
 
 ## Prerequisites
 
@@ -26,8 +28,7 @@ Follow these steps to get started with the RS232 terminal:
 
 ## GUI
 
-![image](https://github.com/my-memory-leaked/RS232-Terminal/assets/72348855/6d330cf2-d514-4c80-917d-bc9a9b22df43)
-
+![image](https://github.com/my-memory-leaked/RS232-Terminal/assets/72348855/eb76d3ca-a11a-45ca-a676-220ac83145e8)
 
 ## Usage
 
