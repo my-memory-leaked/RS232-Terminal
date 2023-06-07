@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace RS232
 {
+    /// <summary>
+    /// Represents the parameters for configuring a COM port.
+    /// </summary>
     internal class ComPortParameters
     {
         private string _portName;
@@ -16,24 +19,39 @@ namespace RS232
         private Handshake _handShake;
         private Parity _parity;
 
+        /// <summary>
+        /// Defines the terminator options for the COM port.
+        /// </summary>
         public enum Terminator { None, CR, LF, CRLF, Own };
 
         private Terminator _terminator;
 
+        /// <summary>
+        /// Sets the port name from the ComboBox.
+        /// </summary>
+        /// <param name="portNameCBox">The ComboBox containing the port names.</param>
         public void SetPortName(ComboBox portNameCBox)
         {
             _portName = portNameCBox.Text;
         }
+
+        /// <summary>
+        /// Returns the port name.
+        /// </summary>
+        /// <returns>The port name.</returns>
         public string GetPortName() { return _portName; }
 
-
-        public void SetBoudRate(ComboBox baudRateCBox)
+        /// <summary>
+        /// Sets the baud rate from the ComboBox.
+        /// </summary>
+        /// <param name="baudRateCBox">The ComboBox containing the baud rate options.</param>
+        public void SetBaudRate(ComboBox baudRateCBox)
         {
             try
             {
                 string baudRateStr = baudRateCBox.Text;
 
-                // I need to truncat the bits/s to get int value.
+                // I need to truncate the bits/s to get an int value.
                 int baudRateStrLen = baudRateStr.Length;
                 baudRateStr = baudRateStr.Substring(0, baudRateStrLen - 7);
 
@@ -41,16 +59,24 @@ namespace RS232
             }
             catch { }
         }
+
+        /// <summary>
+        /// Returns the baud rate.
+        /// </summary>
+        /// <returns>The baud rate.</returns>
         public int GetBaudRate() { return _baudRate; }
 
-
+        /// <summary>
+        /// Sets the data bits from the ComboBox.
+        /// </summary>
+        /// <param name="dataBitsCBox">The ComboBox containing the data bits options.</param>
         public void SetDataBits(ComboBox dataBitsCBox)
         {
             try
             {
                 string dataBitsStr = dataBitsCBox.Text;
 
-                // I need to truncat the bits to get int value.
+                // I need to truncate the bits to get int value.
                 int dataBitsStrLen = dataBitsStr.Length;
                 dataBitsStr = dataBitsStr.Substring(0, dataBitsStrLen - 5);
 
@@ -58,16 +84,24 @@ namespace RS232
             }
             catch { }
         }
+
+        /// <summary>
+        /// Returns the data bits.
+        /// </summary>
+        /// <returns>The data bits.</returns>
         public int GetDataBits() { return _dataBits; }
 
-
+        /// <summary>
+        /// Sets the stop bits from the ComboBox.
+        /// </summary>
+        /// <param name="stopBitsCBox">The ComboBox containing the stop bits options.</param>
         public void SetStopBits(ComboBox stopBitsCBox)
         {
             try
             {
                 string stopBitsStr = stopBitsCBox.Text;
 
-                // I need to truncat the bit or bits to get int value.
+                // I need to truncate the bit or bits to get int value.
                 int stopBitsStrLen = stopBitsStr.Length;
                 stopBitsStr = stopBitsStr.Substring(0, stopBitsStrLen - 4);
                 int stopBits = Int32.Parse(stopBitsStr);
@@ -84,12 +118,20 @@ namespace RS232
                         _stopBits = StopBits.One;
                         break;
                 }
-
             }
             catch { }
         }
+
+        /// <summary>
+        /// Returns the stop bits.
+        /// </summary>
+        /// <returns>The stop bits.</returns>
         public StopBits GetStopBits() { return _stopBits; }
 
+        /// <summary>
+        /// Sets the handshake from the ComboBox.
+        /// </summary>
+        /// <param name="flowControlCBox">The ComboBox containing the flow control options.</param>
         public void SetHandShake(ComboBox flowControlCBox)
         {
             int flowControl = flowControlCBox.SelectedIndex;
@@ -108,12 +150,19 @@ namespace RS232
                     _handShake = Handshake.None;
                     break;
             }
-
         }
 
+        /// <summary>
+        /// Returns the handshake.
+        /// </summary>
+        /// <returns>The handshake.</returns>
         public Handshake GetHandshake() { return _handShake; }
 
-        public void SetParity(ComboBox parityCBox) 
+        /// <summary>
+        /// Sets the parity from the ComboBox.
+        /// </summary>
+        /// <param name="parityCBox">The ComboBox containing the parity options.</param>
+        public void SetParity(ComboBox parityCBox)
         {
             int parity = parityCBox.SelectedIndex;
             switch (parity)
@@ -133,8 +182,16 @@ namespace RS232
             }
         }
 
-        public Parity GetParity() { return _parity;}
+        /// <summary>
+        /// Returns the parity.
+        /// </summary>
+        /// <returns>The parity.</returns>
+        public Parity GetParity() { return _parity; }
 
+        /// <summary>
+        /// Sets the terminator from the ComboBox.
+        /// </summary>
+        /// <param name="terminatorCBox">The ComboBox containing the terminator options.</param>
         public void SetTerminator(ComboBox terminatorCBox)
         {
             int terminator = terminatorCBox.SelectedIndex;
@@ -161,9 +218,15 @@ namespace RS232
             }
         }
 
-        public Terminator GetTerminator() { return _terminator;}    
+        /// <summary>
+        /// Returns the terminator.
+        /// </summary>
+        /// <returns>The terminator.</returns>
+        public Terminator GetTerminator() { return _terminator; }
 
-
+        /// <summary>
+        /// Returns information about the parameters.
+        /// </summary>
         public string ParametersInfo
         {
             get

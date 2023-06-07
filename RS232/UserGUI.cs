@@ -50,7 +50,7 @@ namespace RS232
 
                 // Set port parametrs and then open it.
                 _comPortParameters.SetPortName(comPortCBox);
-                _comPortParameters.SetBoudRate(baudRateCBox);
+                _comPortParameters.SetBaudRate(baudRateCBox);
                 _comPortParameters.SetDataBits(dataBitsCBox);
                 _comPortParameters.SetStopBits(stopBitsCBox);
                 _comPortParameters.SetHandShake(flowControlCBox);
@@ -192,7 +192,7 @@ namespace RS232
             {
                 _comPort.ClosePort();
 
-                _comPortParameters.SetBoudRate(baudRateCBox);
+                _comPortParameters.SetBaudRate(baudRateCBox);
                 _comPort.OpenPort(_comPortParameters, this);
 
                 if (_comPort.IsOpened())

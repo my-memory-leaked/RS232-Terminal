@@ -16,15 +16,24 @@ namespace RS232
         private Stopwatch _stopWatch = new Stopwatch();
         private bool _sentPing = false;
 
+        /// <summary>
+        /// Fetches and populates the ComboBox with the available serial ports.
+        /// </summary>
+        /// <param name="comboBox">The ComboBox control to populate with the available serial ports.</param>
         public void FetchAvailablePorts(ComboBox comboBox)
         {
-            if(comboBox.SelectedItem == null)
+            if (comboBox.SelectedItem == null)
             {
                 String[] ports = SerialPort.GetPortNames();
                 comboBox.Items.AddRange(ports);
             }
         }
 
+        /// <summary>
+        /// Opens the serial port with the specified parameters.
+        /// </summary>
+        /// <param name="comPortParameters">The COM port parameters.</param>
+        /// <param name="userGUI">The UserGUI instance.</param>
         public void OpenPort(ComPortParameters comPortParameters, UserGUI userGUI)
         {
             _serialPort.PortName = comPortParameters.GetPortName();
@@ -42,28 +51,39 @@ namespace RS232
             catch
             {
                 _serialPort.Close();
-                return ;
+                return;
             }
         }
 
+        /// <summary>
+        /// Checks if the serial port is open.
+        /// </summary>
+        /// <returns>True if the serial port is open, otherwise false.</returns>
         public bool IsOpened()
         {
             return _serialPort.IsOpen;
         }
 
+        /// <summary>
+        /// Closes the serial port.
+        /// </summary>
         public void ClosePort()
         {
-            if(_serialPort.IsOpen) 
-            { 
+            if (_serialPort.IsOpen)
+            {
                 _serialPort.Close();
             }
         }
 
+        /// <summary>
+        /// Reads and returns the received data from the serial port.
+        /// </summary>
+        /// <returns>The received data as a string.</returns>
         public string ReceiveData()
         {
             try
             {
-                if(_serialPort.IsOpen )
+                if (_serialPort.IsOpen)
                 {
                     string message = _serialPort.ReadExisting();
 
@@ -80,7 +100,6 @@ namespace RS232
                         return $"PONG {_stopWatch.Elapsed.TotalMilliseconds}ms\n";
                     }
 
-
                     return message + Environment.NewLine;
                 }
             }
@@ -91,12 +110,15 @@ namespace RS232
             return string.Empty;
         }
 
-
+        /// <summary>
+        /// Sends data through the serial port.
+        /// </summary>
+        /// <param name="data">The data to send.</param>
         public void SendData(string data)
         {
-            if(_serialPort.IsOpen && data != null)
-            { 
-                if(data == "PING")
+            if (_serialPort.IsOpen && data != null)
+            {
+                if (data == "PING")
                 {
                     _sentPing = true;
                     _stopWatch.Restart();
@@ -104,8 +126,5 @@ namespace RS232
                 _serialPort.Write(data);
             }
         }
-
-
-
     }
 }
