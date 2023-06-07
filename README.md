@@ -42,8 +42,7 @@ Follow these steps to get started with the RS232 terminal:
 
 ## Connection:
 
-![image](https://github.com/my-memory-leaked/RS232-Terminal/assets/72348855/f3c62ea1-c61d-40a1-a55a-d83c383457c8)
-
+![image](https://github.com/my-memory-leaked/RS232-Terminal/assets/72348855/2eacdf83-9ab4-47f5-8d89-f37c296808c9)
 
 ## License
 
