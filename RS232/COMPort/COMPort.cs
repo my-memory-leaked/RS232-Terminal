@@ -14,7 +14,7 @@ namespace RS232
         private static SerialPort _serialPort = new SerialPort();
         public string ReceivedData;
         private Stopwatch _stopWatch = new Stopwatch();
-
+        private bool _sentPing = false;
 
         public void FetchAvailablePorts(ComboBox comboBox)
         {
@@ -73,9 +73,10 @@ namespace RS232
                         SendData("PONG");
                         return "PING" + Environment.NewLine;
                     }
-                    else if (message.Equals("PONG"))
+                    else if (message.Equals("PONG") && _sentPing)
                     {
                         _stopWatch.Stop();
+                        _sentPing = false;
                         return $"PONG {_stopWatch.Elapsed.TotalMilliseconds}ms\n";
                     }
 
@@ -97,6 +98,7 @@ namespace RS232
             { 
                 if(data == "PING")
                 {
+                    _sentPing = true;
                     _stopWatch.Restart();
                 }
                 _serialPort.Write(data);
